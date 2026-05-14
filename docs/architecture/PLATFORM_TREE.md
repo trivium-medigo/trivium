@@ -1178,6 +1178,7 @@ bizplatform/
 │  │  ├─ partner-app-platform.md
 │  │  ├─ payroll-benefits.md
 │  │  ├─ performance-architecture.md
+│  │  ├─ PHASE_0_GOVERNANCE_DECISIONS.md
 │  │  ├─ platform-billing-metering.md
 │  │  ├─ PLATFORM_TREE.md
 │  │  ├─ platform_tree_manifest.json
