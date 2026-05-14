@@ -1,0 +1,15 @@
+-- =============================================================================
+-- TRIVIUM — Legal / reporting entities (journal header scope)
+-- Domain: organization-graph
+-- =============================================================================
+--
+-- entity_id on journal_entries identifies which company/subsidiary the economic
+-- event belongs to for reporting and consolidation. It is orthogonal to the
+-- book_id (which chart and posting rules apply).
+--
+-- Invariant: journal_entries (book_id, entity_id) must be a combination allowed
+-- by tenant configuration (e.g. entity's default book matches book_id unless
+-- explicitly cross-book — cross-book rules deferred).
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

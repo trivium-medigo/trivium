@@ -1,0 +1,13 @@
+-- =============================================================================
+-- TRIVIUM — Purchase orders (procurement → GL path)
+-- Domain: procurement-spend
+-- =============================================================================
+--
+-- PO accruals (goods received not invoiced, etc.) generate **deterministic**
+-- journals when policy triggers; same pipeline as requisitions.sql:
+--   PO/GRN event → canonical template → posting-engine → posted lines.
+--
+-- AI may suggest accrual candidates; **amounts** from quantities × agreed rates.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

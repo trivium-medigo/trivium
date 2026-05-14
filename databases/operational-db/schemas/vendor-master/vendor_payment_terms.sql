@@ -1,0 +1,25 @@
+-- =============================================================================
+-- TRIVIUM — Vendor payment terms (AP timing & discounts)
+-- Domain: vendor-master
+-- =============================================================================
+--
+-- DUE DATES:
+--   Net terms, EOM, proximo; drive bill due_date and AP aging buckets.
+--
+-- DISCOUNTS:
+--   Early-pay discount windows; deterministic discount lost/gained GL via
+--   posting-engine when taken.
+--
+-- PAYMENT SCHEDULING:
+--   Feeds payment batch selection and cash forecast outflows (see
+--   docs/architecture/cash-liquidity-forecasting.md).
+--
+-- CASH FORECAST IMPACT:
+--   Expected disbursement dates weighted by approval + funding readiness.
+--
+-- AP AGING:
+--   Terms anchor aging buckets vs invoice_date / due_date; reconcile to
+--   metric-catalog AP aging / DPO definitions.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

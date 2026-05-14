@@ -1,0 +1,37 @@
+-- =============================================================================
+-- TRIVIUM — Journal entry headers (posting scope)
+-- Domain: ledger-integrity
+-- =============================================================================
+--
+-- Suggested table `journal_entries`:
+--   id, tenant_id,
+--   book_id FK books, ledger_id FK ledgers,
+--   entity_id FK organization_graph.entities,
+--   fiscal_period_id FK finance-accounting/fiscal_periods (when periodized),
+--   entry_type (standard | opening | closing | adjustment | …),
+--   status (draft | posted | void),
+--   source_kind (manual | payroll | tax | fx | rev_rec | bank | spend | ai_draft | …)
+--       nullable — for traceability; AI-sourced drafts use ai_draft until accepted.
+--   currency_code, posting_batch_id nullable,
+--   posted_at nullable, posted_by nullable,
+--   idempotency_key nullable,
+--   created_at, updated_at
+--
+-- Scope invariants (enforced DB + posting-engine + API):
+--   • book_id, ledger_id, entity_id must be mutually consistent for tenant.
+--   • ledger.accounting_basis (accrual | cash) is fixed for the life of a posted
+--     entry; TB for a period is computed **per ledger** — no mixing bases in one TB.
+--   • When period_locks blocks posting for (book_id, fiscal_period_id), status
+--     cannot transition to posted.
+--   • COA mutations may be blocked in parallel when lock_coa_mutations set
+--     (see period_locks.sql).
+--
+-- **Posted immutability**: once status = posted, lines are not edited in place;
+--   corrections use reversing entries through posting-engine (deterministic).
+--
+-- **AI boundary**: journal_entries with source_kind = ai_draft remain draft until
+--   human approval and posting-engine validation; posting-engine is the only
+--   path to status = posted. See docs/architecture/deterministic-accounting.md.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

@@ -1,0 +1,47 @@
+-- =============================================================================
+-- TRIVIUM — Chart of accounts (COA) foundation spec
+-- Domain: finance-accounting (natural GL accounts only; dimensions live elsewhere)
+-- =============================================================================
+--
+-- Design anchors (bounded foundation; not production DDL):
+--   • COA is BOOK-SCOPED: every row belongs to exactly one accounting book.
+--   • Accounts are NATURAL GL accounts — not departments/projects/locations.
+--   • Account codes are SIMPLE strings unique per (tenant, book) — segmented
+--     account numbers are explicitly out of scope for v1 (reserved for later).
+--   • Parent/child hierarchy; non-leaf HEADER accounts have is_posting = false.
+--   • Journal lines must reference gl_accounts by id and must post only to
+--     rows where is_posting = true (enforce in DB CHECK where possible + API +
+--     posting-engine; see ledger-integrity/journal_lines.sql).
+--   • is_active = false retains history; deletion of posted accounts is forbidden
+--     at application layer (spec).
+--   • is_system marks platform-controlled accounts (immunity rules TBD).
+--   • RLS: tenant_id (and book_id) must appear on every row; policies attach
+--     tenant from session — implement in migration phase with identity-governance.
+--
+-- Suggested physical table name: gl_accounts
+--   Primary key: id (uuid or bigint per migration standards)
+--   Required columns (reference):
+--     tenant_id, book_id,
+--     code, name, description nullable,
+--     account_type (asset | liability | equity | revenue | expense | cogs | …),
+--     normal_balance (debit | credit),
+--     parent_id nullable FK gl_accounts(id),
+--     is_posting boolean not null default true,
+--     is_active boolean not null default true,
+--     is_system boolean not null default false,
+--     sort_order int nullable,
+--     metadata jsonb nullable,
+--     created_at, updated_at, version
+--
+-- Constraints (to implement in migrations):
+--   UNIQUE (tenant_id, book_id, code)
+--   CHECK (NOT is_posting OR parent may be null — header rows may have children)
+--   FK book_id → organization_graph.books(id)
+--
+-- Cross-references:
+--   • Control-account ROLE targets (RE, suspense, FX, etc.) → gl_book_settings.sql
+--   • Journal lines → ledger-integrity/journal_lines.sql (gl_account_id)
+--   • Provider account ids → accounting-sync/gl_account_external_mappings.sql
+--
+-- DDL intentionally omitted here — executed via operational-db migration toolchain.
+-- =============================================================================

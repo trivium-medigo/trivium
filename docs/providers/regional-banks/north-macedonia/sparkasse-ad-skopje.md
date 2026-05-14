@@ -1,0 +1,3 @@
+# sparkasse-ad-skopje
+
+Placeholder.

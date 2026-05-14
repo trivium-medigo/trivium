@@ -1,0 +1,27 @@
+-- =============================================================================
+-- TRIVIUM — Revenue recognition (subscriptions, deferred revenue, SaaS)
+-- Domain: finance-operations
+-- =============================================================================
+--
+-- OWNERSHIP: Subscription / billing **economic events** (see
+-- `commercial-lifecycle` and `packages/accounting-canonical-model`) produce
+-- **canonical accounting events**. Stripe (or other PSP) **cash movement**
+-- does **not** equal recognized revenue — reconciliation ties:
+--   payouts, fees, refunds, disputes, cash, AR, deferred revenue, and
+--   recognized revenue lines.
+--
+-- **Deferred revenue schedules** drive **deterministic** recognition journals
+-- per period; **posting-engine** posts accrual-basis lines to the ledger tied
+-- to the accrual `ledger_id`.
+--
+-- **ARR / MRR** metrics must derive from **contract/subscription facts** and
+-- warehouse rollups — not from AI guesses. AI may explain or forecast **only**
+-- when labeled non-GAAP / narrative.
+--
+-- Cross-references:
+--   docs/architecture/commercial-lifecycle.md
+--   docs/architecture/finance-operations.md
+--   docs/architecture/deterministic-accounting.md
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

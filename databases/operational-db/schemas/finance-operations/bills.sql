@@ -1,0 +1,48 @@
+-- =============================================================================
+-- TRIVIUM — Bills (AP / vendor invoices) — BILL.com–class intake & automation
+-- Domain: finance-operations
+-- =============================================================================
+--
+-- INTAKE SOURCES: email_inbox | vendor_portal | api | manual_entry | ocr_pipeline
+--   (OCR job tables are phase-2 candidates; link extracted artifacts via
+--   object-storage keys + ai-accounting-drafts evidence.)
+--
+-- INVOICE INBOX / STATE MACHINE (illustrative states):
+--   draft → needs_vendor_info → pending_duplicate_review → pending_approval →
+--   approved → payment_ready → partially_paid → paid | void | rejected
+--
+-- DUPLICATE BILL DETECTION:
+--   Hook: same vendor_id + normalized invoice_number + amount + invoice_date
+--   window → flag pending_duplicate_review; deterministic matcher + human
+--   resolution (phase-2 service optional).
+--
+-- APPROVALS:
+--   Link to approval-policy-engine instances (bill_id → approval_tasks /
+--   workflows). SoD: submitter ≠ final approver ≠ payment initiator per policy.
+--
+-- ATTACHMENTS:
+--   object-storage/attachments + import-uploads; immutable PDF store with
+--   tenant prefix contract (see object-storage/tenant-prefix-contract.md).
+--
+-- VENDOR LINKAGE:
+--   vendor_id FK vendor_master; vendor bank pay-to instructions validated
+--   before payment batch.
+--
+-- GL CODING:
+--   draft_gl_suggestion (AI/heuristic) vs approved_gl_mapping (authoritative
+--   for posting). Only **approved** mapping feeds posting-engine payloads.
+--
+-- POSTING-ENGINE:
+--   **Only** posting-engine creates **posted** AP accrual / expense journals from
+--   approved bills; status transitions documented in accounting-canonical-model.
+--
+-- PAYMENT READINESS:
+--   payment_ready requires: approved + valid vendor payee + no open duplicate
+--   flags + funding check (future) + period not locked for AP posting.
+--
+-- AI BOUNDARY:
+--   AI may extract/suggest; **never** approves, pays, or posts autonomously
+--   (docs/architecture/ap-payment-automation.md).
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

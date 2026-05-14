@@ -1,0 +1,3 @@
+# accounting-sync-service
+
+Placeholder.

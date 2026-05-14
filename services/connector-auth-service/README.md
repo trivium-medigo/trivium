@@ -1,0 +1,3 @@
+# connector-auth-service
+
+Placeholder.

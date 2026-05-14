@@ -1,0 +1,26 @@
+-- =============================================================================
+-- TRIVIUM — Journal lines (amounts; natural account reference)
+-- Domain: ledger-integrity
+-- =============================================================================
+--
+-- Suggested table `journal_lines`:
+--   id, tenant_id,
+--   journal_entry_id FK journal_entries ON DELETE CASCADE,
+--   line_number int,
+--   gl_account_id FK finance-accounting gl_accounts(id),
+--   debit_amount, credit_amount (numeric; one zero per convention),
+--   description nullable,
+--   tracking_category_ids / dimension FKs nullable — see tracking_categories.sql,
+--   created_at
+--
+-- HARD INVARIANTS (foundation contract):
+--   1. gl_account_id.account must satisfy gl_accounts.book_id = journal_entries.book_id
+--      AND gl_accounts.tenant_id = journal_entries.tenant_id.
+--   2. Target gl_accounts.is_posting MUST be true (reject header accounts).
+--   3. Target gl_accounts.is_active SHOULD be true unless policy allows historical
+--      posting to inactive accounts (document tenant setting).
+--   4. Enforcement: FK + composite validation in migrations; posting-engine
+--      re-validates before commit; API validates for UX.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

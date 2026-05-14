@@ -1,0 +1,22 @@
+-- =============================================================================
+-- TRIVIUM — Vendor tax profiles (W-9/W-8, 1099 eligibility)
+-- Domain: vendor-master
+-- =============================================================================
+--
+-- W-9 / W-8 / TAX FORMS:
+--   Store references to object-storage tax artifacts; PII/TIN vaulting per
+--   security posture (phase-2 hardened storage patterns).
+--
+-- 1099 ELIGIBILITY:
+--   Box mapping, NEC vs MISC classification hints; **filing** integration is
+--   phase-2 (`vendor_1099_filings.sql` candidate — not in v1 schema).
+--
+-- TAX ID VALIDATION:
+--   Deterministic TIN match / IRS TIN check integrations (phase-2 services).
+--
+-- VENDOR PORTAL:
+--   Self-service tax document upload links to same object-storage prefixes
+--   (see object-storage/tenant-prefix-contract.md).
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

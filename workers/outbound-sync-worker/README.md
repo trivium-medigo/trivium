@@ -1,0 +1,3 @@
+# outbound-sync-worker
+
+Placeholder.

@@ -1,0 +1,23 @@
+-- =============================================================================
+-- TRIVIUM — Bank (sub-)accounts → cash GL accounts
+-- Domain: bank-connectivity
+-- =============================================================================
+--
+-- Explicit mapping from internal bank_accounts (or equivalent) to book-scoped
+-- gl_accounts for cash/bank posting. Required for automated bank feed → GL.
+--
+-- Suggested table `bank_account_gl_mappings`:
+--   id, tenant_id, book_id,
+--   bank_account_id FK bank_accounts,
+--   gl_account_id FK gl_accounts — must be asset/cash-type per product rules,
+--   currency_code nullable — when bank currency differs from book functional,
+--   effective_from, effective_to nullable,
+--   is_active boolean default true,
+--   created_at, updated_at
+--
+-- Invariants:
+--   • gl_accounts.book_id = this.book_id; is_posting = true.
+--   • Prefer mapping over gl_book_settings.default_cash_account_id when present.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

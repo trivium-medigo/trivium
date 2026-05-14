@@ -1,0 +1,59 @@
+-- =============================================================================
+-- TRIVIUM — Accounting books (COA / ledger scope anchor)
+-- Domain: organization-graph
+-- =============================================================================
+--
+-- A BOOK is the primary scope for:
+--   • gl_accounts (chart_of_accounts.sql) — one chart instance per book
+--   • gl_book_settings (finance-accounting/gl_book_settings.sql)
+--   • journal_entries / journal_lines (ledger-integrity) — posting book
+--
+-- Suggested columns for table `books` (names illustrative):
+--   id, tenant_id,
+--   company_id or entity_id nullable — which legal entity owns this book,
+--   code, name,
+--   base_currency_code,
+--   default_ledger_id nullable FK → ledger-integrity/ledgers,
+--   is_active,
+--   metadata jsonb nullable,
+--   created_at, updated_at
+--
+-- Invariants:
+--   • Every posted journal line's gl_account.book_id must equal the journal's book_id.
+--   • Multi-entity tenants: each entity may have one primary book; secondary books
+--     for consolidation are a later-phase concern (no coa_book_mappings in v1).
+--
+-- ---------------------------------------------------------------------------
+-- DUAL-BASIS / PARALLEL LEDGER (architecture — no DDL here)
+-- ---------------------------------------------------------------------------
+-- TRIVIUM distinguishes **accounting basis** from **reporting presentation**:
+--
+--   • **Accrual book (primary economic truth for most SaaS / GAAP reporting)**:
+--       One book + ledger pair holds accrual-basis posted journals (revenue
+--       recognized when earned, expenses when incurred). Trial balance and
+--       subledgers roll up from these journal_lines.
+--
+--   • **Cash-basis view** (not a second conflicting truth at the same grain):
+--       Implemented either as (A) a **parallel ledger** under the same or a
+--       sibling book with `accounting_basis = cash` on `ledgers`, or (B) a
+--       **deterministic reporting view** that filters/transforms accrual lines
+--       (e.g. cash-basis P&L from cash accounts + paid AP/AR). Product picks one;
+--       if (A), each journal entry posts to **exactly one** basis ledger; never
+--       double-count the same economic event on both bases without an explicit
+--       controlled bridge (e.g. basis-adjustment entry).
+--
+--   • **books** row: optional `primary_reporting_basis` (accrual | cash) and
+--     optional `cash_basis_ledger_id` FK when parallel ledger is used.
+--     **ledgers** row: `accounting_basis` enum (accrual | cash) — see ledgers.sql.
+--
+--   • **journal_entries**: always tied to one `ledger_id` (thus one basis for
+--     posted truth). TB snapshots are keyed by ledger/book/period so accrual TB
+--     and cash TB are separate artifacts when both exist.
+--
+--   • AI and summaries never define basis; only configured books/ledgers and
+--     posting-engine rules do. See docs/architecture/deterministic-accounting.md.
+--
+-- RLS: tenant_id; book rows visible only within tenant session context.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

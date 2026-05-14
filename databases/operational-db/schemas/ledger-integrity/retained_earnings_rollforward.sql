@@ -1,0 +1,13 @@
+-- =============================================================================
+-- TRIVIUM — Retained earnings rollforward / close linkage
+-- Domain: ledger-integrity
+-- =============================================================================
+--
+-- Captures close-period movements into retained earnings and opening balances
+-- for subsequent periods. Uses gl_book_settings.retained_earnings_account_id
+-- as the target natural account for automated close journals.
+--
+-- Relationship: driven by finance-close processes + journal_entries of type closing.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

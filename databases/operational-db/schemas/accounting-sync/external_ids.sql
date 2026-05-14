@@ -1,0 +1,12 @@
+-- =============================================================================
+-- TRIVIUM — Generic external identifier rows (non-COA-specific)
+-- Domain: accounting-sync
+-- =============================================================================
+--
+-- Use for arbitrary synced entities. For **GL account** provider keys, prefer
+-- gl_account_external_mappings.sql (narrow table, clearer indexes and ownership).
+--
+-- Cross-walk: both may coexist; avoid duplicating the same mapping in two places.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

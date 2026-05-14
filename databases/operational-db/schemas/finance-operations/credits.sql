@@ -1,0 +1,26 @@
+-- =============================================================================
+-- TRIVIUM — Credits (AR credit memos, vendor credits, applications)
+-- Domain: finance-operations
+-- =============================================================================
+--
+-- CUSTOMER CREDITS / CREDIT MEMOS:
+--   Reduce AR; link to originating invoice or standalone; approval for high $.
+--
+-- VENDOR CREDITS:
+--   Debit memos / vendor credits reduce AP; may apply to bills or stand as
+--   on-account vendor credits.
+--
+-- APPLICATION:
+--   credit_application lines tie credit to invoice/bill; running open balance
+--   drives aging.
+--
+-- AR / AP AGING IMPACT:
+--   Aging views must include open credits; deterministic aging owner =
+--   subledger + warehouse models (see metric-catalog.md).
+--
+-- POSTING-ENGINE:
+--   Posted credit memos and applications only via posting-engine after
+--   approval thresholds.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

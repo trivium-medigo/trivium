@@ -1,0 +1,26 @@
+-- =============================================================================
+-- TRIVIUM — Budgets (procurement / spend control envelope)
+-- Domain: procurement-spend
+-- =============================================================================
+--
+-- BUDGET OWNERSHIP:
+--   department_id | cost_center_id | project_id (see organization-graph/projects.sql)
+--   | GL natural account rollup — owner + approver for transfers.
+--
+-- BUDGET VS ACTUAL:
+--   Actuals from posted GL + card + purchase orders; dashboards consume
+--   warehouse models — analytics is not source of truth (analytics/README.md).
+--
+-- ENCUMBRANCE (PHASE 2):
+--   Optional commitment/encumbrance when PO approved — `encumbrances.sql`
+--   deferred; document only in architecture until product scope expands.
+--
+-- PROCUREMENT / SPEND CONTROLS:
+--   Tie to approval-policy-engine and spend policies; hard stops vs soft warnings.
+--
+-- DASHBOARD / KPI LINKAGE:
+--   spend_by_department, burn vs budget widgets in dashboard-catalog.md;
+--   metric formula owner in metric-catalog.md.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

@@ -1,0 +1,3 @@
+# outbound-destinations
+
+Placeholder.

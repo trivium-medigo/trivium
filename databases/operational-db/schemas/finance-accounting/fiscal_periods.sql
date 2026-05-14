@@ -1,0 +1,10 @@
+-- =============================================================================
+-- TRIVIUM — Fiscal periods (calendar for period_locks and journal dating)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- journal_entries.fiscal_period_id references periods defined here per book.
+-- Period locks (period_locks.sql) apply per (book_id, fiscal_period_id).
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

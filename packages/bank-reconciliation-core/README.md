@@ -1,0 +1,3 @@
+# bank-reconciliation-core
+
+Placeholder.

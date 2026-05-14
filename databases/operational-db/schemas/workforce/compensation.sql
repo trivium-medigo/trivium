@@ -1,0 +1,14 @@
+-- =============================================================================
+-- TRIVIUM — Workforce compensation (feeds payroll and dimensions)
+-- Domain: workforce
+-- =============================================================================
+--
+-- Compensation structures (salary, hourly rates, equity comp metadata) feed
+-- **deterministic** gross pay calculation in payroll runs. Equity and bonuses
+-- may have separate GL mapping per policy.
+--
+-- **Dimensions**: cost center / department / location on employee assignment
+-- propagate to payroll journal lines — not to COA as fake accounts.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

@@ -1,0 +1,35 @@
+-- =============================================================================
+-- TRIVIUM — Per-book GL control settings (system / control account pointers)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- Purpose: one logical row per (tenant_id, book_id) pointing to gl_accounts rows
+-- that automation and close processes require. Keeps COA table free of dozens
+-- of special-case columns; pointers are book-scoped like the chart.
+--
+-- Suggested table name: gl_book_settings
+--
+-- Pointer columns (nullable until configured; FK → gl_accounts.id, same book):
+--   retained_earnings_account_id   — year-end close / RE rollforward
+--   suspense_account_id            — unbalanced or unmapped postings
+--   rounding_account_id            — currency/penny rounding
+--   default_realized_fx_gain_loss_account_id
+--   default_unrealized_fx_gain_loss_account_id  — pairs with fx_revaluation_runs
+--   default_ar_account_id          — optional; subledger may override
+--   default_ap_account_id
+--   default_tax_payable_account_id
+--   default_tax_receivable_account_id
+--   default_cash_account_id        — fallback when bank_account_gl_mapping absent
+--
+-- Invariants (application + posting-engine + migrations):
+--   • Each non-null pointer must reference gl_accounts where book_id matches
+--     this row's book_id and is_posting = true.
+--   • Pointers may reference is_system = true accounts.
+--
+-- Period / COA mutation: when period_locks.lock_coa_mutations = true for a book
+-- and period, reject updates to gl_accounts and gl_book_settings for that scope.
+--
+-- RLS: tenant_id on every row; same session pattern as gl_accounts.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

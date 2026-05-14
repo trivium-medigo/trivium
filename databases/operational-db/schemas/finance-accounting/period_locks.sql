@@ -1,0 +1,22 @@
+-- =============================================================================
+-- TRIVIUM — Fiscal period locks (posting + optional COA freeze)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- Suggested table `period_locks`:
+--   id, tenant_id, book_id,
+--   fiscal_period_id FK fiscal_periods,
+--   lock_journal_posting boolean not null default false,
+--   lock_coa_mutations boolean not null default false,
+--   locked_at, locked_by nullable,
+--   notes nullable
+--
+-- Behavior:
+--   • lock_journal_posting = true → no new posted journal lines in period/book.
+--   • lock_coa_mutations = true → no create/update/delete on gl_accounts and
+--     no destructive changes to gl_book_settings for that book (close hardening).
+--
+-- Typical close: both true for closed periods; reopening is privileged operation.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

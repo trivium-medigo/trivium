@@ -1,0 +1,21 @@
+-- =============================================================================
+-- TRIVIUM — Customer health / payment risk scores
+-- Domain: customer-master
+-- =============================================================================
+--
+-- PAYMENT RISK:
+--   Features: DSO trend, late payment rate, dispute rate, concentration flags.
+--
+-- CHURN / HEALTH SCORE:
+--   Composite for CS/sales; **not** official financial KPI until owned by
+--   analytics metric definition with versioned formula (metric-lineage.md).
+--
+-- COLLECTIONS PRIORITIZATION:
+--   Rank customers for collector queues; deterministic ranking owner required.
+--
+-- AI ROLE:
+--   AI may **suggest** narrative drivers or anomaly highlights; **must not** be
+--   sole owner of official health score used for board/investor reporting.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

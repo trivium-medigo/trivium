@@ -1,0 +1,32 @@
+-- =============================================================================
+-- TRIVIUM — Card transactions (spend-travel → GL, corporate card cycle)
+-- Domain: spend-travel
+-- =============================================================================
+--
+-- CORPORATE CARD STATEMENT CYCLE:
+--   statement_period_start/end, statement_close_date, payment_due_date per
+--   card program / issuer feed; ties user transactions into statement batches.
+--
+-- LIABILITY GL ACCOUNT:
+--   Unsettled employee spend accrues to card payable / clearing (not cash) until
+--   statement settlement; deterministic mapping via gl_account_external_mappings
+--   + bank_account_gl_mapping for program-level liability accounts.
+--
+-- CARD SETTLEMENT:
+--   Statement payment from operating bank → reduce card liability; reconcile
+--   bank feed to issuer statement totals.
+--
+-- MERCHANT / CATEGORY → GL:
+--   MCC + policy rules → deterministic expense / project dimensions; AI may
+--   suggest coding with human approval (retrieval ACL).
+--
+-- RECONCILIATION:
+--   Bank/card feed ↔ posted lines ↔ individual auth/clear events; dispute /
+--   credit card credits follow same posting-engine path as finance-operations.
+--
+-- POSTING-ENGINE:
+--   Mandatory for posted impact; canonical events include card_statement_closed,
+--   card_payment_settled (packages/accounting-canonical-model).
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

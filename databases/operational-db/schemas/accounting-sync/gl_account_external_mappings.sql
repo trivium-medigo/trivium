@@ -1,0 +1,31 @@
+-- =============================================================================
+-- TRIVIUM — External accounting provider ↔ GL account mapping
+-- Domain: accounting-sync (narrow table; generic external_ids.sql stays generic)
+-- =============================================================================
+--
+-- Maps a third-party chart line (QuickBooks, Xero, NetSuite, etc.) to TRIVIUM
+-- gl_accounts.id. One TRIVIUM book may sync to many external "company" ids;
+-- include provider + external ids + optional connection id.
+--
+-- Suggested table name: gl_account_external_mappings
+--
+-- Reference columns:
+--   tenant_id, book_id,
+--   connection_id nullable FK → accounting-sync connections (per tenant integration),
+--   provider (text enum: qbo | xero | netsuite | sage_intacct | dynamics_bc | …),
+--   external_account_id (string; provider-native id or code),
+--   external_account_name nullable,
+--   gl_account_id FK → gl_accounts(id), same tenant/book,
+--   sync_status (active | stale | error) nullable,
+--   last_synced_at timestamptz nullable,
+--   provider_payload_hash nullable  — idempotency / drift detection
+--
+-- Constraints:
+--   UNIQUE (tenant_id, book_id, provider, external_account_id, connection_id)
+--     — refine if connection_id nullable breaks uniqueness (partial indexes TBD).
+--
+-- Cross-reference: outbound-sync/external_id_registry for non-GL entities; this
+-- table is COA-specific for query performance and clear ownership.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

@@ -1,0 +1,33 @@
+-- =============================================================================
+-- TRIVIUM — Ledgers (posting container; typically 1:1 with book at foundation)
+-- Domain: ledger-integrity
+-- =============================================================================
+--
+-- Suggested table `ledgers`:
+--   id, tenant_id, book_id UNIQUE FK → organization_graph.books,
+--   code, name,
+--   functional_currency_code,
+--   accounting_basis enum (accrual | cash) NOT NULL DEFAULT 'accrual',
+--   is_primary_for_book boolean DEFAULT true,
+--   is_active,
+--   created_at, updated_at
+--
+-- journal_entries.ledger_id references this row. Foundation phase assumes
+-- one primary **accrual** ledger per book unless product later adds sub-ledgers.
+--
+-- ---------------------------------------------------------------------------
+-- DUAL-BASIS (see also organization-graph/books.sql)
+-- ---------------------------------------------------------------------------
+-- • **Single source of posted truth per ledger**: each `journal_entries` row
+--   posts to exactly one `ledger_id`; that ledger's `accounting_basis` defines
+--   whether lines participate in accrual TB or cash TB.
+-- • **Parallel ledgers** (optional): same `book_id` may have two ledgers
+--   (accrual + cash) with strict rules so the same source document generates
+--   at most one posted entry per basis, linked by `posting_batches` metadata
+--   or mirrored adjustment entries — never silent duplicate GL.
+-- • **Reporting-only cash view**: if no cash ledger, cash statements are built
+--   from deterministic rules over accrual data (documented in
+--   docs/architecture/financial-reporting.md), not from AI.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

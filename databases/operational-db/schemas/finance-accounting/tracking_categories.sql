@@ -1,0 +1,13 @@
+-- =============================================================================
+-- TRIVIUM — Tracking categories / dimensions (NOT natural GL accounts)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- CONTRACT: dimensions (department, location, project, cost center, class, …)
+-- are recorded on journal_lines or subledgers — they do NOT replace gl_accounts.
+-- COA stays thin; reporting pivots on dimensions + natural account.
+--
+-- Implementation shares patterns with organization-graph dimension tables.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

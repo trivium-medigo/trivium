@@ -1,0 +1,13 @@
+-- =============================================================================
+-- TRIVIUM — Payroll tax items (withholding / employer tax lines)
+-- Domain: payroll-benefits
+-- =============================================================================
+--
+-- Each line belongs to a payroll_run and contributes to the **deterministic**
+-- payroll journal template (jurisdiction-specific rules). Maps to liability and
+-- expense GL accounts via canonical mapping — not LLM output.
+--
+-- Covers: federal/state/local withholding, employer FICA, unemployment, etc.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

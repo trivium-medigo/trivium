@@ -1,0 +1,27 @@
+-- =============================================================================
+-- TRIVIUM — Customer credit limits (AR exposure & order holds)
+-- Domain: customer-master
+-- =============================================================================
+--
+-- CREDIT LIMIT:
+--   Approved credit ceiling per customer / entity / book; versioned changes
+--   with approval trail (sensitive metric — see policies/dashboard-access.md).
+--
+-- EXPOSURE:
+--   Open AR + unbilled WIP (if applicable) + open orders on credit vs limit;
+--   deterministic exposure owner = AR subledger + warehouse AR aging model.
+--
+-- ORDER / INVOICE HOLD:
+--   When exposure > limit or past-due thresholds → credit_hold on new orders /
+--   shipments / invoices until collections / override per policy.
+--
+-- DSO / COLLECTIONS:
+--   Feeds DSO, AR aging, cash forecast (AR cash in); links to collections
+--   workflow and CFO dashboard widgets (analytics/metrics/metric-catalog.md).
+--
+-- CREDIT RISK DASHBOARD:
+--   Investor/board views may show concentration + limit utilization only under
+--   strict RLS; no AI-generated official limit decisions.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

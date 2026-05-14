@@ -1,0 +1,40 @@
+-- =============================================================================
+-- TRIVIUM — Payments (AP disbursements, AR receipts, payroll funding, etc.)
+-- Domain: finance-operations
+-- =============================================================================
+--
+-- PAYMENT RUNS / BATCHES:
+--   payment_run groups lines for a disbursement wave (similar intent to Oracle
+--   Payment Process Requests — phase-2 `payment_process_requests.sql`).
+--
+-- PAYMENT METHOD ENUM:
+--   ach | domestic_wire | international_wire | check | virtual_card |
+--   corporate_card | internal_transfer | other
+--
+-- SCHEDULING:
+--   scheduled_pay_date, release_datetime, pay_from_bank_account_id,
+--   selection criteria (which approved bills included).
+--
+-- SETTLEMENT STATUS:
+--   initiated | transmitted | acknowledged | settled | failed | reversed ;
+--   link bank_ack_file_id / confirmation ref in object-storage.
+--
+-- REMITTANCE EVIDENCE:
+--   Store remittance advice objects under object-storage; hash for audit.
+--
+-- FAILED / REVERSED PAYMENTS:
+--   Immutable reversal entries via posting-engine (no silent delete).
+--
+-- POSTING-ENGINE IMPACT:
+--   Cash + AP/AR GL movements post **only** through posting-engine after
+--   settlement confirmation per policy.
+--
+-- AUDIT TRAIL:
+--   core/audit_log + connector-auth for bank API actors; dual control on
+--   high-value batches per policies/dashboard-access.md.
+--
+-- AI BOUNDARY:
+--   No AI-initiated payment rails; no autonomous ACH/wire/card execution.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

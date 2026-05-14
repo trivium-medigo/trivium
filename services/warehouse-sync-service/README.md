@@ -1,0 +1,3 @@
+# warehouse-sync-service
+
+Placeholder.

@@ -1,0 +1,17 @@
+-- =============================================================================
+-- TRIVIUM — Append-only audit log (includes COA mutations)
+-- Domain: core
+-- =============================================================================
+--
+-- COA-related events MUST log here (or equivalent central audit stream) with:
+--   • tenant_id, actor_id, correlation_id,
+--   • resource_type (e.g. gl_account | gl_book_settings | period_lock),
+--   • resource_id, action (create | update | deactivate | …),
+--   • before jsonb, after jsonb (or redacted fields per policy),
+--   • created_at
+--
+-- Dedicated COA event-store tables are out of scope for v1; this table is the
+-- canonical compliance spine. RLS restricts read/write by tenant.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

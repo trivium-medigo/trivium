@@ -1,0 +1,16 @@
+-- =============================================================================
+-- TRIVIUM — Tax codes (default GL targets for tax posting)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- Extend the tax code record with optional FKs to gl_accounts (same book scope):
+--   default_tax_payable_account_id,
+--   default_tax_receivable_account_id,
+--   default_tax_expense_account_id nullable,
+--   book_id or inherit book from tax code scope model (product decision).
+--
+-- Posting-engine uses these when generating tax lines from AP/AR documents.
+-- Detailed tax engine out of scope for this foundation file.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

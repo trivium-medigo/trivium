@@ -1,0 +1,10 @@
+-- =============================================================================
+-- TRIVIUM — FX rates (reference data for multi-currency)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- Foundation link: revaluation and translation use gl_book_settings pointers for
+-- gain/loss accounts in combination with fx_revaluation_runs.sql.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

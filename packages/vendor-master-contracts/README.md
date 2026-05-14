@@ -1,0 +1,3 @@
+# vendor-master-contracts
+
+Placeholder.

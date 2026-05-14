@@ -1,0 +1,17 @@
+-- =============================================================================
+-- TRIVIUM — Requisitions (procurement → GL path)
+-- Domain: procurement-spend
+-- =============================================================================
+--
+-- Spend committed through procurement must post to GL only via:
+--   canonical event (requisition / PO approval) → journal template →
+--   **posting-engine** → journal_entries/lines.
+--
+-- **Deterministic** category / commodity → GL mapping tables (TBD in migrations);
+-- **approval-policy-engine** may gate commitment or receipt posting.
+--
+-- **Dimensions** (department, cost center, project, vendor) on lines — not
+-- synthetic COA accounts. **No direct AI posting.**
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

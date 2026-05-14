@@ -1,0 +1,46 @@
+-- =============================================================================
+-- TRIVIUM — Projects / jobs / grants / customer work (dimension master)
+-- Domain: organization-graph
+-- =============================================================================
+--
+-- PURPOSE: First-class **project** dimension for profitability, grants, job
+-- costing, payroll allocation, spend allocation, revenue attribution, and ROI
+-- reporting — **not** a COA account. Journal lines carry `project_id` as a
+-- dimension FK alongside departments, cost centers, locations, and
+-- `tracking_categories` where product rules require both.
+--
+-- Suggested table `projects`:
+--   id, tenant_id,
+--   company_id nullable FK companies,
+--   entity_id nullable FK entities,
+--   book_id nullable FK books — when project is book-scoped for reporting,
+--   code, name, description nullable,
+--   project_type enum (internal | customer | grant | implementation | capital |
+--     rnd | other) NOT NULL,
+--   status (draft | active | on_hold | closed | cancelled),
+--   customer_id nullable, vendor_id nullable, contract_id nullable (commercial-lifecycle),
+--   start_date, end_date nullable,
+--   is_active boolean NOT NULL DEFAULT true,
+--   metadata jsonb nullable,
+--   created_at, updated_at
+--
+-- RELATIONSHIP TO tracking_categories.sql:
+--   Use **projects** for stable project master data (codes, lifecycle, grants).
+--   Use **tracking_categories** for flexible analytical tags; avoid duplicating
+--   the same business concept in both without a documented mapping.
+--
+-- DIMENSIONS ON journal_lines:
+--   `journal_lines.project_id` nullable FK → projects(id), same tenant;
+--   must satisfy same book/entity invariants as other dimensions when enforced.
+--
+-- DOWNSTREAM:
+--   • Payroll/spend/procurement specs allocate costs to projects.
+--   • `finance-operations/revenue_recognition.sql` may attribute revenue by project.
+--   • `analytics/warehouse-models` and `analytics/metrics/metric-catalog.md` define
+--     project profitability and ROI metrics from ledger + subledgers.
+--   • Dashboards: see `docs/architecture/dashboard-and-metrics.md`.
+--
+-- RLS: tenant_id mandatory; project rows visible only within tenant session.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

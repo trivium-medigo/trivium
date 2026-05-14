@@ -1,0 +1,31 @@
+-- =============================================================================
+-- TRIVIUM — Project assignments (workforce / org → project)
+-- Domain: organization-graph
+-- =============================================================================
+--
+-- PURPOSE: Who or what is allocated to a **project** for payroll, time,
+-- spend approvals, and profitability — feeds **dimension resolution** on
+-- journal lines and operational approvals (not GL account explosion).
+--
+-- Suggested table `project_assignments`:
+--   id, tenant_id, project_id FK projects,
+--   employee_id nullable FK workforce employees,
+--   contractor_id nullable,
+--   team_id nullable FK teams,
+--   department_id nullable FK departments,
+--   cost_center_id nullable FK cost_centers,
+--   allocation_percent numeric(5,2) CHECK (allocation_percent > 0 AND <= 100),
+--   effective_from, effective_to nullable,
+--   approval_owner_id nullable — manager accountable for accuracy,
+--   source (hr_system | manual | import) nullable,
+--   created_at, updated_at
+--
+-- RULES:
+--   • Overlapping assignments per person/project resolved by application policy.
+--   • Payroll and spend engines read active assignments to default `project_id`
+--     on lines unless overridden with approval.
+--
+-- RLS: tenant-scoped; sensitive payroll linkage — see `policies/dashboard-access.md`.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

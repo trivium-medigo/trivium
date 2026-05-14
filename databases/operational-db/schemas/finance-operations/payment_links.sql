@@ -1,0 +1,29 @@
+-- =============================================================================
+-- TRIVIUM — Payment links (AR customer pay links, portal payments, processor)
+-- Domain: finance-operations
+-- =============================================================================
+--
+-- AR PAYMENT LINKS:
+--   Hosted pay links for invoices; tokenized URLs; expiration; amount caps.
+--
+-- CUSTOMER PORTAL PAYMENTS:
+--   Integrate with connector-auth + customer-portal; settlement updates AR cash
+--   application via posting-engine.
+--
+-- SETTLEMENT / RECONCILIATION:
+--   Link processor settlement batch ↔ bank deposit ↔ AR cash application;
+--   reconciliation_links in ledger-integrity where applicable.
+--
+-- PROCESSOR FEES:
+--   Separate GL lines for merchant fees / interchange as deterministic mapping.
+--
+-- FRAUD / CHARGEBACK / DISPUTE:
+--   States: disputed | chargeback_won | chargeback_lost; reversal journals
+--   through posting-engine only.
+--
+-- POSTING-ENGINE:
+--   All posted cash application and fee recognition through posting-engine
+--   canonical events (payment_settled, etc.).
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

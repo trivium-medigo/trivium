@@ -1,0 +1,13 @@
+-- =============================================================================
+-- TRIVIUM — Trial balance snapshots (materialized aggregates)
+-- Domain: ledger-integrity
+-- =============================================================================
+--
+-- Suggested purpose: store or cache TB by (tenant, book, fiscal_period, currency,
+-- gl_account_id) for reporting and close acceleration.
+--
+-- Grain and refresh strategy (full vs delta) — implementation phase.
+-- Source of truth remains journal_lines; snapshots are derivative.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

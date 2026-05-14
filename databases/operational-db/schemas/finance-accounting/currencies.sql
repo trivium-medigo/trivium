@@ -1,0 +1,10 @@
+-- =============================================================================
+-- TRIVIUM — Currencies (reference; links to multi-currency journal lines)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- journal_lines and journal_entries carry transaction currency; functional
+-- currency lives on ledgers/books. FX tables use these codes.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

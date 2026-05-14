@@ -1,0 +1,17 @@
+-- =============================================================================
+-- TRIVIUM — Expense reports (spend-travel → GL)
+-- Domain: spend-travel
+-- =============================================================================
+--
+-- Approved expense reports produce canonical **reimbursement or AP** events.
+-- Posting only through **posting-engine** after approval-policy checks.
+--
+-- **Deterministic** mileage/per-diem rules where applicable; corporate card
+-- out-of-pocket split follows mapping tables. Dimensions from traveler org
+-- assignment — not COA explosion.
+--
+-- **No direct AI posting**; AI may classify line items below approval threshold
+-- with human review when required.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

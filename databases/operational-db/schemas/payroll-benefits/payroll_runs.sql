@@ -1,0 +1,35 @@
+-- =============================================================================
+-- TRIVIUM — Payroll runs (deterministic journals → GL)
+-- Domain: payroll-benefits
+-- =============================================================================
+--
+-- CONTRACT: A payroll_run is a **batch boundary** for **deterministic** payroll
+-- accounting. It does **not** post GL by itself; it produces inputs for the
+-- accounting-canonical-model journal template → **posting-engine** →
+-- journal_entries / journal_lines.
+--
+-- Suggested flow:
+--   payroll_run (approved) → payroll_journal_template (computed from rates,
+--   tax tables, benefits rules, employee assignments) → posting_batch_id →
+--   journal_entries (source_kind = payroll) → journal_lines
+--
+-- Must cover:
+--   • Gross wages by earning type → expense / asset GL (per mapping table TBD)
+--   • Employee tax withholding → liability GL (payable to authority)
+--   • Employer payroll taxes → expense + liability
+--   • Benefits (employee deferral, employer match) → benefits payable / expense
+--   • Net pay → payroll clearing / cash when paid
+--   • **Payroll clearing account** — balances to zero after funding + payment
+--
+-- Dimensions:
+--   • department_id, cost_center_id, location_id, project_id from **workforce**
+--     / organization-graph — **never** fake COA accounts for org structure.
+--
+-- Offboarding:
+--   • Final pay, benefit revocations, COBRA-like liabilities — same pipeline;
+--     link to workforce offboarding events for audit.
+--
+-- AI: may assist validation or anomaly detection; **amounts** come from rules.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

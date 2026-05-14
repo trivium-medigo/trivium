@@ -1,0 +1,14 @@
+-- =============================================================================
+-- TRIVIUM — Benefits enrollments (payroll + GL implications)
+-- Domain: payroll-benefits
+-- =============================================================================
+--
+-- Enrollment changes drive **deterministic** payroll accruals: employee
+-- deductions, employer contributions, payable to carriers, HSA/FSA where
+-- applicable. Posted via same payroll_run → posting-engine pipeline as
+-- payroll_tax_items; amounts from plan rules + enrollment effective dates.
+--
+-- AI may flag inconsistent enrollments; **does not** set contribution amounts.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

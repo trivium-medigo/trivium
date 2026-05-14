@@ -1,0 +1,3 @@
+# DATABASE_SCHEMA_PLAN
+
+Placeholder.

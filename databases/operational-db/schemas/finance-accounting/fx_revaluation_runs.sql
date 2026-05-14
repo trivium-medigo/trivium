@@ -1,0 +1,10 @@
+-- =============================================================================
+-- TRIVIUM — FX revaluation runs (operational header for FX postings)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- Each run posts to accounts referenced from gl_book_settings (unrealized /
+-- realized buckets). journal_entries created by posting-engine link back here.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

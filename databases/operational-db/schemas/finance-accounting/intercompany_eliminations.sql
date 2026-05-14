@@ -1,0 +1,10 @@
+-- =============================================================================
+-- TRIVIUM — Intercompany eliminations (consolidation; beyond COA foundation)
+-- Domain: finance-accounting
+-- =============================================================================
+--
+-- Deferred: elimination sets reference gl_accounts for due-to/due-from pairs.
+-- No additional COA tables required at foundation phase.
+--
+-- DDL intentionally omitted — migration toolchain.
+-- =============================================================================

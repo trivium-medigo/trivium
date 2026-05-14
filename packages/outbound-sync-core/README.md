@@ -1,0 +1,3 @@
+# outbound-sync-core
+
+Placeholder.

@@ -1,0 +1,3 @@
+# posting-finalization-worker
+
+Placeholder.
