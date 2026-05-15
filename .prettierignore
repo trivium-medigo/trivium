@@ -1,0 +1,32 @@
+# Install / build / VCS
+node_modules
+pnpm-lock.yaml
+dist
+build
+coverage
+.next
+.turbo
+.git
+
+# Generated / canonical tree inventory (not hand-formatted)
+docs/architecture/PLATFORM_TREE.md
+docs/architecture/platform_tree_manifest.json
+
+# Phase 1 staged policy: `prettier --write .` must not rewrite the whole tree.
+# Root `format` / `format:check` scripts pass explicit globs for shared tooling + app configs.
+# Revisit when a dedicated repo-wide formatting pass is approved.
+.github/
+analytics/
+docs/
+databases/
+policies/
+warehouse/
+search/
+vector-store/
+platform/
+observability/
+security/
+services/
+workers/
+packages/
+apps/

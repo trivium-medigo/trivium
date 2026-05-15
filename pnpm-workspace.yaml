@@ -1,1 +1,8 @@
-{}
+# TRIVIUM pnpm workspace (Phase 1 Step 11).
+# Root package is always included; globs list workspace projects (dirs with package.json).
+# See https://pnpm.io/pnpm-workspace_yaml and https://pnpm.io/workspaces
+packages:
+  - 'apps/*'
+  - 'apps/bff/*'
+  - 'apps/portals/*'
+  - 'packages/*'

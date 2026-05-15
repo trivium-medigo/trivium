@@ -15,12 +15,20 @@ def norm(p: str) -> str:
     return p.replace("\\", "/").strip("/")
 
 
+def _is_js_tooling_artifact(rel: str) -> bool:
+    """Installed dependency trees are not manifest inventory; committed lockfiles are."""
+    parts = rel.split("/")
+    return "node_modules" in parts
+
+
 def build_physical_index() -> tuple[set[str], set[str]]:
     dirs: set[str] = set()
     files: set[str] = set()
     for p in ROOT.rglob("*"):
         rel = p.relative_to(ROOT).as_posix()
         if rel == ".git" or rel.startswith(".git/"):
+            continue
+        if _is_js_tooling_artifact(rel):
             continue
         if rel == EXCLUDED_FILE:
             continue

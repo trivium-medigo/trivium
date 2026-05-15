@@ -1,1 +1,35 @@
-placeholder
+# Line endings — see https://git-scm.com/docs/gitattributes
+# Text: normalize to LF in the Git object database; eol=lf keeps the working tree LF on all platforms.
+# This avoids Windows review noise from core.autocrlf CRLF round-trips on already-LF repos.
+* text=auto eol=lf
+
+# Common binary assets (override the default text rule; do not EOL-normalize).
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tgz binary
+*.7z binary
+*.wasm binary
+*.node binary
+*.dll binary
+*.exe binary
+*.so binary
+*.dylib binary
+*.parquet binary
+*.sqlite binary
+*.db binary
+
+# Windows-native launcher scripts: CRLF in working tree is conventional.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf

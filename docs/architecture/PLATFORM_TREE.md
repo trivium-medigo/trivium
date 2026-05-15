@@ -3630,13 +3630,20 @@ bizplatform/
 ├─ .env.example
 ├─ .gitattributes
 ├─ .gitignore
+├─ .nvmrc
+├─ .prettierignore
+├─ .prettierrc.json
 ├─ CODEOWNERS
 ├─ CONTRIBUTING.md
+├─ eslint.config.mjs
 ├─ LICENSE
 ├─ Makefile
 ├─ package.json
+├─ pnpm-lock.yaml
 ├─ pnpm-workspace.yaml
 ├─ README.md
 ├─ TRIVIUM.code-workspace
+├─ tsconfig.base.json
+├─ tsconfig.json
 └─ turbo.json
 ```

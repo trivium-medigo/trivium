@@ -1,1 +1,3 @@
-placeholder
+# pnpm / Node workspace (Phase 1 Step 11+)
+node_modules/
+pnpm-debug.log*

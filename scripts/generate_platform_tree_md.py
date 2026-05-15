@@ -13,6 +13,8 @@ def render(base: Path, rel: Path = Path("."), prefix: str = "") -> list[str]:
         relp = p.relative_to(ROOT).as_posix()
         if relp == ".git" or relp.startswith(".git/"):
             return False
+        if relp == "node_modules" or relp.startswith("node_modules/"):
+            return False
         if relp == EXCLUDED_FILE:
             return False
         if p.is_file() and p.name.endswith(".stats.json"):
