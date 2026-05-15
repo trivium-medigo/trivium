@@ -49,6 +49,10 @@ def build_physical_index() -> tuple[set[str], set[str]]:
         rel = p.relative_to(ROOT).as_posix()
         if rel == ".git" or rel.startswith(".git/"):
             continue
+        if "node_modules" in rel.split("/"):
+            continue
+        if rel == ".turbo" or rel.startswith(".turbo/"):
+            continue
         if rel == EXCLUDED_FILE:
             continue
         if p.is_file() and p.name.endswith(".stats.json"):

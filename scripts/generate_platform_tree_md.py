@@ -15,6 +15,8 @@ def render(base: Path, rel: Path = Path("."), prefix: str = "") -> list[str]:
             return False
         if relp == "node_modules" or relp.startswith("node_modules/"):
             return False
+        if relp == ".turbo" or relp.startswith(".turbo/"):
+            return False
         if relp == EXCLUDED_FILE:
             return False
         if p.is_file() and p.name.endswith(".stats.json"):

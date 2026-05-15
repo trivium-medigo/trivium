@@ -316,6 +316,8 @@ bizplatform/
 │  │  │  │     └─ webhooks.routes.ts
 │  │  │  └─ main.ts
 │  │  ├─ tests/
+│  │  │  ├─ unit/
+│  │  │  │  └─ vitest-api.smoke.test.ts
 │  │  │  └─ README.md
 │  │  ├─ package.json
 │  │  ├─ README.md
@@ -2341,6 +2343,8 @@ bizplatform/
 │  │     │  └─ README.md
 │  │     ├─ parser.spec.ts
 │  │     └─ README.md
+│  ├─ tooling/
+│  │  └─ vitest-runner.smoke.test.ts
 │  ├─ ui-visual-regression/
 │  │  └─ README.md
 │  ├─ vendor-master/
@@ -3645,5 +3649,6 @@ bizplatform/
 ├─ TRIVIUM.code-workspace
 ├─ tsconfig.base.json
 ├─ tsconfig.json
-└─ turbo.json
+├─ turbo.json
+└─ vitest.config.ts
 ```

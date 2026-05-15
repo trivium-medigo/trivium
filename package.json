@@ -19,16 +19,23 @@
     "eslint-config-prettier": "10.1.8",
     "prettier": "3.7.4",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.53.1"
+    "typescript-eslint": "8.53.1",
+    "turbo": "2.9.14",
+    "vitest": "3.2.4"
   },
   "scripts": {
     "validate:tree": "python scripts/validate_platform_tree.py",
     "create:tree": "python scripts/create_physical_tree.py",
-    "lint": "eslint .",
+    "lint": "turbo run lint:root",
+    "lint:root": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --noEmit -p tsconfig.json",
-    "format": "prettier --write package.json pnpm-workspace.yaml tsconfig.json tsconfig.base.json turbo.json eslint.config.mjs .prettierrc.json \"apps/**/tsconfig.json\" \"apps/**/next.config.mjs\" apps/web/app/globals.css",
-    "format:check": "prettier --check package.json pnpm-workspace.yaml tsconfig.json tsconfig.base.json turbo.json eslint.config.mjs .prettierrc.json \"apps/**/tsconfig.json\" \"apps/**/next.config.mjs\" apps/web/app/globals.css",
-    "test": "node -e \"console.error('[TRIVIUM] test: Vitest not configured yet — IMPLEMENTATION_EXECUTION_PLAN Phase 1 Step 15.'); process.exit(1)\""
+    "typecheck": "turbo run typecheck:root",
+    "typecheck:root": "tsc --noEmit -p tsconfig.json",
+    "format": "turbo run format:root",
+    "format:root": "prettier --write package.json pnpm-workspace.yaml tsconfig.json tsconfig.base.json turbo.json vitest.config.ts eslint.config.mjs .prettierrc.json \"apps/**/tsconfig.json\" \"apps/**/next.config.mjs\" \"apps/**/vitest.config.ts\" apps/web/app/globals.css \"tests/tooling/**/*.ts\" \"apps/api/tests/**/*.ts\"",
+    "format:check": "turbo run format:check:root",
+    "format:check:root": "prettier --check package.json pnpm-workspace.yaml tsconfig.json tsconfig.base.json turbo.json vitest.config.ts eslint.config.mjs .prettierrc.json \"apps/**/tsconfig.json\" \"apps/**/next.config.mjs\" \"apps/**/vitest.config.ts\" apps/web/app/globals.css \"tests/tooling/**/*.ts\" \"apps/api/tests/**/*.ts\"",
+    "test": "turbo run test:root",
+    "test:root": "vitest run"
   }
 }

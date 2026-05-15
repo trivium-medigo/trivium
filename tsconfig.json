@@ -7,11 +7,13 @@
     "lib": ["ES2024", "DOM"]
   },
   "include": [
+    "vitest.config.ts",
     "apps/**/*.ts",
     "apps/**/*.tsx",
     "packages/**/*.ts",
     "services/**/*.ts",
-    "workers/**/*.ts"
+    "workers/**/*.ts",
+    "tests/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

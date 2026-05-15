@@ -1,6 +1,12 @@
 # TRIVIUM pnpm workspace (Phase 1 Step 11).
 # Root package is always included; globs list workspace projects (dirs with package.json).
 # See https://pnpm.io/pnpm-workspace_yaml and https://pnpm.io/workspaces
+#
+# allowBuilds: pnpm v11 requires explicit opt-in for dependency postinstall/build scripts
+# (esbuild is required by Vitest/Vite). https://pnpm.io/settings#allowbuilds
+allowBuilds:
+  esbuild: true
+
 packages:
   - 'apps/*'
   - 'apps/bff/*'

@@ -1,1 +1,33 @@
-{}
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "tsconfig.json",
+    "tsconfig.base.json",
+    "turbo.json",
+    "eslint.config.mjs",
+    "vitest.config.ts",
+    ".prettierrc.json",
+    ".prettierignore"
+  ],
+  "tasks": {
+    "//#lint:root": {
+      "outputs": []
+    },
+    "//#typecheck:root": {
+      "outputs": []
+    },
+    "//#test:root": {
+      "outputs": []
+    },
+    "//#format:check:root": {
+      "outputs": []
+    },
+    "//#format:root": {
+      "cache": false,
+      "outputs": []
+    }
+  }
+}

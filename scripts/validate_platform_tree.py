@@ -16,9 +16,13 @@ def norm(p: str) -> str:
 
 
 def _is_js_tooling_artifact(rel: str) -> bool:
-    """Installed dependency trees are not manifest inventory; committed lockfiles are."""
+    """Installed dependency trees and local task caches are not manifest inventory; committed lockfiles are."""
     parts = rel.split("/")
-    return "node_modules" in parts
+    if "node_modules" in parts:
+        return True
+    if rel == ".turbo" or rel.startswith(".turbo/"):
+        return True
+    return False
 
 
 def build_physical_index() -> tuple[set[str], set[str]]:
